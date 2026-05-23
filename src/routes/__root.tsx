@@ -76,9 +76,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "GigsLo connects neighbours in Finland and the EU. Post a task, get help in minutes, or earn part-time near you." },
       { name: "author", content: "GigsLo" },
       { property: "og:title", content: "GigsLo — Get hyperlocal help in minutes" },
-      { property: "og:description", content: "Cleaning, assembly, gardening, deliveries and more. Vetted helpers near you." },
+      { property: "og:description", content: "GigsLo connects neighbours in Finland and the EU. Post a task, get help in minutes, or earn part-time near you." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "GigsLo — Get hyperlocal help in minutes" },
+      { name: "twitter:description", content: "GigsLo connects neighbours in Finland and the EU. Post a task, get help in minutes, or earn part-time near you." },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
