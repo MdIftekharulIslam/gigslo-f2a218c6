@@ -9,8 +9,50 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as PostTaskRouteImport } from './routes/post-task'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as ExploreRouteImport } from './routes/explore'
+import { Route as CompanyRouteImport } from './routes/company'
+import { Route as CategoriesRouteImport } from './routes/categories'
+import { Route as BecomeHelperRouteImport } from './routes/become-helper'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PostTaskRoute = PostTaskRouteImport.update({
+  id: '/post-task',
+  path: '/post-task',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreRoute = ExploreRouteImport.update({
+  id: '/explore',
+  path: '/explore',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompanyRoute = CompanyRouteImport.update({
+  id: '/company',
+  path: '/company',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CategoriesRoute = CategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BecomeHelperRoute = BecomeHelperRouteImport.update({
+  id: '/become-helper',
+  path: '/become-helper',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +61,130 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/become-helper': typeof BecomeHelperRoute
+  '/categories': typeof CategoriesRoute
+  '/company': typeof CompanyRoute
+  '/explore': typeof ExploreRoute
+  '/login': typeof LoginRoute
+  '/post-task': typeof PostTaskRoute
+  '/signup': typeof SignupRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/become-helper': typeof BecomeHelperRoute
+  '/categories': typeof CategoriesRoute
+  '/company': typeof CompanyRoute
+  '/explore': typeof ExploreRoute
+  '/login': typeof LoginRoute
+  '/post-task': typeof PostTaskRoute
+  '/signup': typeof SignupRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/become-helper': typeof BecomeHelperRoute
+  '/categories': typeof CategoriesRoute
+  '/company': typeof CompanyRoute
+  '/explore': typeof ExploreRoute
+  '/login': typeof LoginRoute
+  '/post-task': typeof PostTaskRoute
+  '/signup': typeof SignupRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/become-helper'
+    | '/categories'
+    | '/company'
+    | '/explore'
+    | '/login'
+    | '/post-task'
+    | '/signup'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/become-helper'
+    | '/categories'
+    | '/company'
+    | '/explore'
+    | '/login'
+    | '/post-task'
+    | '/signup'
+  id:
+    | '__root__'
+    | '/'
+    | '/become-helper'
+    | '/categories'
+    | '/company'
+    | '/explore'
+    | '/login'
+    | '/post-task'
+    | '/signup'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BecomeHelperRoute: typeof BecomeHelperRoute
+  CategoriesRoute: typeof CategoriesRoute
+  CompanyRoute: typeof CompanyRoute
+  ExploreRoute: typeof ExploreRoute
+  LoginRoute: typeof LoginRoute
+  PostTaskRoute: typeof PostTaskRoute
+  SignupRoute: typeof SignupRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/post-task': {
+      id: '/post-task'
+      path: '/post-task'
+      fullPath: '/post-task'
+      preLoaderRoute: typeof PostTaskRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore': {
+      id: '/explore'
+      path: '/explore'
+      fullPath: '/explore'
+      preLoaderRoute: typeof ExploreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/company': {
+      id: '/company'
+      path: '/company'
+      fullPath: '/company'
+      preLoaderRoute: typeof CompanyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/categories': {
+      id: '/categories'
+      path: '/categories'
+      fullPath: '/categories'
+      preLoaderRoute: typeof CategoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/become-helper': {
+      id: '/become-helper'
+      path: '/become-helper'
+      fullPath: '/become-helper'
+      preLoaderRoute: typeof BecomeHelperRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,7 +197,24 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BecomeHelperRoute: BecomeHelperRoute,
+  CategoriesRoute: CategoriesRoute,
+  CompanyRoute: CompanyRoute,
+  ExploreRoute: ExploreRoute,
+  LoginRoute: LoginRoute,
+  PostTaskRoute: PostTaskRoute,
+  SignupRoute: SignupRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
