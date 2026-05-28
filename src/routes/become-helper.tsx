@@ -1,7 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Layout } from "@/components/site/Layout";
 import { Wallet, Clock, MapPin, ShieldCheck } from "lucide-react";
 import portrait from "@/assets/helper-portrait.jpg";
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/become-helper")({
   component: BecomeHelper,
@@ -14,6 +16,32 @@ export const Route = createFileRoute("/become-helper")({
 });
 
 function BecomeHelper() {
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [err, setErr] = useState<string | null>(null);
+  const [ok, setOk] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setErr(null);
+    setLoading(true);
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { full_name: name, role: "helper" },
+        emailRedirectTo: typeof window !== "undefined" ? window.location.origin : undefined,
+      },
+    });
+    setLoading(false);
+    if (error) { setErr(error.message); return; }
+    setOk(true);
+    setTimeout(() => navigate({ to: "/explore" }), 1200);
+  }
+
   return (
     <Layout>
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 grid lg:grid-cols-2 gap-12 items-center">
@@ -35,12 +63,30 @@ function BecomeHelper() {
               </div>
             ))}
           </div>
-          <Link to="/signup" className="mt-8 inline-flex h-12 items-center px-7 rounded-full bg-accent text-accent-foreground font-semibold hover:bg-accent/90 shadow-soft">
-            Sign up as a helper
-          </Link>
         </div>
-        <img src={portrait} alt="A happy GigsLo helper" loading="lazy" width={1024} height={1280} className="rounded-3xl w-full h-[560px] object-cover shadow-card" />
+
+        <div className="rounded-3xl border border-border bg-card p-6 sm:p-8 shadow-card">
+          <img src={portrait} alt="A happy GigsLo helper" loading="lazy" width={1024} height={1280} className="rounded-2xl w-full h-48 object-cover mb-6" />
+          <h2 className="text-2xl font-bold">Create your helper account</h2>
+          <p className="mt-1 text-sm text-muted-foreground">Sign up in seconds — it's free.</p>
+          {ok ? (
+            <div className="mt-6 rounded-lg bg-primary/10 text-primary p-4 text-sm font-medium">
+              Account created! Redirecting to nearby tasks…
+            </div>
+          ) : (
+            <form onSubmit={onSubmit} className="mt-6 space-y-3">
+              <input required value={name} onChange={(e) => setName(e.target.value)} placeholder="Full name" className={inp} />
+              <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className={inp} />
+              <input type="password" required minLength={8} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password (min 8 chars)" className={inp} />
+              {err && <p className="text-sm text-destructive">{err}</p>}
+              <button disabled={loading} className="w-full h-12 rounded-full bg-accent text-accent-foreground font-semibold hover:bg-accent/90 shadow-soft disabled:opacity-60">
+                {loading ? "Creating account…" : "Sign up as a helper"}
+              </button>
+            </form>
+          )}
+        </div>
       </section>
     </Layout>
   );
 }
+const inp = "w-full h-12 px-4 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring";
