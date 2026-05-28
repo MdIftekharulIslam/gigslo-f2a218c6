@@ -1,7 +1,8 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogOut } from "lucide-react";
 import logo from "@/assets/logo.png";
+import { useAuth, signOut } from "@/lib/auth";
 
 const leftLinks = [
   { to: "/post-task", label: "Post your needs" },
@@ -16,6 +17,18 @@ const rightLinks = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  async function handleSignOut() {
+    await signOut();
+    navigate({ to: "/" });
+  }
+
+  const displayName =
+    (user?.user_metadata?.full_name as string | undefined) ||
+    user?.email?.split("@")[0] ||
+    "";
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/85 backdrop-blur">
@@ -47,18 +60,29 @@ export function Header() {
               {l.label}
             </Link>
           ))}
-          <Link
-            to="/login"
-            className="ml-2 px-4 py-2 text-sm font-medium text-foreground hover:text-primary"
-          >
-            Login
-          </Link>
-          <Link
-            to="/signup"
-            className="px-4 py-2 text-sm font-semibold rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-soft transition-all"
-          >
-            Sign up
-          </Link>
+          {user ? (
+            <>
+              <span className="ml-2 px-3 py-2 text-sm font-medium text-foreground/80">Hi, {displayName}</span>
+              <button
+                onClick={handleSignOut}
+                className="px-4 py-2 text-sm font-semibold rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-soft inline-flex items-center gap-1.5"
+              >
+                <LogOut className="h-4 w-4" /> Sign out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="ml-2 px-4 py-2 text-sm font-medium text-foreground hover:text-primary">
+                Login
+              </Link>
+              <Link
+                to="/signup"
+                className="px-4 py-2 text-sm font-semibold rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-soft transition-all"
+              >
+                Sign up
+              </Link>
+            </>
+          )}
         </div>
 
         <button
@@ -84,20 +108,31 @@ export function Header() {
               </Link>
             ))}
             <div className="flex gap-2 pt-3">
-              <Link
-                to="/login"
-                onClick={() => setOpen(false)}
-                className="flex-1 text-center px-4 py-2 text-sm rounded-full border border-border"
-              >
-                Login
-              </Link>
-              <Link
-                to="/signup"
-                onClick={() => setOpen(false)}
-                className="flex-1 text-center px-4 py-2 text-sm rounded-full bg-primary text-primary-foreground"
-              >
-                Sign up
-              </Link>
+              {user ? (
+                <button
+                  onClick={() => { setOpen(false); handleSignOut(); }}
+                  className="flex-1 text-center px-4 py-2 text-sm rounded-full bg-primary text-primary-foreground"
+                >
+                  Sign out ({displayName})
+                </button>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    onClick={() => setOpen(false)}
+                    className="flex-1 text-center px-4 py-2 text-sm rounded-full border border-border"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/signup"
+                    onClick={() => setOpen(false)}
+                    className="flex-1 text-center px-4 py-2 text-sm rounded-full bg-primary text-primary-foreground"
+                  >
+                    Sign up
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
