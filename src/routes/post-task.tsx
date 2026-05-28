@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Layout } from "@/components/site/Layout";
 import { useState } from "react";
 import { categories } from "@/lib/categories";
+import { MapPin, Loader2 } from "lucide-react";
 
 export const Route = createFileRoute("/post-task")({
   component: PostTask,
@@ -15,6 +16,43 @@ export const Route = createFileRoute("/post-task")({
 
 function PostTask() {
   const [sent, setSent] = useState(false);
+  const [where, setWhere] = useState("");
+  const [locLoading, setLocLoading] = useState(false);
+  const [locErr, setLocErr] = useState<string | null>(null);
+  const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(null);
+
+  function useMyLocation() {
+    setLocErr(null);
+    if (!("geolocation" in navigator)) {
+      setLocErr("Geolocation isn't supported by your browser.");
+      return;
+    }
+    setLocLoading(true);
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const { latitude, longitude } = pos.coords;
+        setCoords({ lat: latitude, lng: longitude });
+        try {
+          const res = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`,
+            { headers: { "Accept-Language": "en" } }
+          );
+          const data = await res.json();
+          const addr = data.display_name || `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
+          setWhere(addr);
+        } catch {
+          setWhere(`${latitude.toFixed(5)}, ${longitude.toFixed(5)}`);
+        } finally {
+          setLocLoading(false);
+        }
+      },
+      (e) => {
+        setLocErr(e.message || "Could not get your location.");
+        setLocLoading(false);
+      },
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+  }
 
   return (
     <Layout>
@@ -46,7 +84,31 @@ function PostTask() {
               </select>
             </Field>
             <div className="grid sm:grid-cols-2 gap-5">
-              <Field label="Where?"><input required placeholder="Postcode or area" className={inputCls} /></Field>
+              <Field label="Where?">
+                <div className="flex gap-2">
+                  <input
+                    required
+                    value={where}
+                    onChange={(e) => setWhere(e.target.value)}
+                    placeholder="Postcode, address or area"
+                    className={inputCls}
+                  />
+                  <button
+                    type="button"
+                    onClick={useMyLocation}
+                    disabled={locLoading}
+                    title="Use my live location"
+                    className="shrink-0 h-11 px-3 rounded-lg border border-input bg-background hover:bg-secondary inline-flex items-center gap-1 text-sm font-medium disabled:opacity-60"
+                  >
+                    {locLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <MapPin className="h-4 w-4 text-primary" />}
+                    <span className="hidden sm:inline">Use my location</span>
+                  </button>
+                </div>
+                {locErr && <p className="mt-1 text-xs text-destructive">{locErr}</p>}
+                {coords && !locErr && (
+                  <p className="mt-1 text-xs text-muted-foreground">📍 Pinned at {coords.lat.toFixed(4)}, {coords.lng.toFixed(4)}</p>
+                )}
+              </Field>
               <Field label="When?"><input type="date" required className={inputCls} /></Field>
             </div>
             <Field label="Details">

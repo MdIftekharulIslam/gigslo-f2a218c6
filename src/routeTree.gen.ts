@@ -9,16 +9,24 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PostTaskRouteImport } from './routes/post-task'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as CompanyRouteImport } from './routes/company'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as BecomeHelperRouteImport } from './routes/become-helper'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -29,6 +37,11 @@ const SignupRoute = SignupRouteImport.update({
   path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PostTaskRoute = PostTaskRouteImport.update({
   id: '/post-task',
   path: '/post-task',
@@ -37,6 +50,11 @@ const PostTaskRoute = PostTaskRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExploreRoute = ExploreRouteImport.update({
@@ -71,10 +89,13 @@ export interface FileRoutesByFullPath {
   '/categories': typeof CategoriesRoute
   '/company': typeof CompanyRoute
   '/explore': typeof ExploreRoute
+  '/faq': typeof FaqRoute
   '/login': typeof LoginRoute
   '/post-task': typeof PostTaskRoute
+  '/privacy': typeof PrivacyRoute
   '/signup': typeof SignupRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -82,10 +103,13 @@ export interface FileRoutesByTo {
   '/categories': typeof CategoriesRoute
   '/company': typeof CompanyRoute
   '/explore': typeof ExploreRoute
+  '/faq': typeof FaqRoute
   '/login': typeof LoginRoute
   '/post-task': typeof PostTaskRoute
+  '/privacy': typeof PrivacyRoute
   '/signup': typeof SignupRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -94,10 +118,13 @@ export interface FileRoutesById {
   '/categories': typeof CategoriesRoute
   '/company': typeof CompanyRoute
   '/explore': typeof ExploreRoute
+  '/faq': typeof FaqRoute
   '/login': typeof LoginRoute
   '/post-task': typeof PostTaskRoute
+  '/privacy': typeof PrivacyRoute
   '/signup': typeof SignupRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -107,10 +134,13 @@ export interface FileRouteTypes {
     | '/categories'
     | '/company'
     | '/explore'
+    | '/faq'
     | '/login'
     | '/post-task'
+    | '/privacy'
     | '/signup'
     | '/sitemap.xml'
+    | '/terms'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -118,10 +148,13 @@ export interface FileRouteTypes {
     | '/categories'
     | '/company'
     | '/explore'
+    | '/faq'
     | '/login'
     | '/post-task'
+    | '/privacy'
     | '/signup'
     | '/sitemap.xml'
+    | '/terms'
   id:
     | '__root__'
     | '/'
@@ -129,10 +162,13 @@ export interface FileRouteTypes {
     | '/categories'
     | '/company'
     | '/explore'
+    | '/faq'
     | '/login'
     | '/post-task'
+    | '/privacy'
     | '/signup'
     | '/sitemap.xml'
+    | '/terms'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -141,14 +177,24 @@ export interface RootRouteChildren {
   CategoriesRoute: typeof CategoriesRoute
   CompanyRoute: typeof CompanyRoute
   ExploreRoute: typeof ExploreRoute
+  FaqRoute: typeof FaqRoute
   LoginRoute: typeof LoginRoute
   PostTaskRoute: typeof PostTaskRoute
+  PrivacyRoute: typeof PrivacyRoute
   SignupRoute: typeof SignupRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TermsRoute: typeof TermsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -163,6 +209,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/post-task': {
       id: '/post-task'
       path: '/post-task'
@@ -175,6 +228,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/explore': {
@@ -221,10 +281,13 @@ const rootRouteChildren: RootRouteChildren = {
   CategoriesRoute: CategoriesRoute,
   CompanyRoute: CompanyRoute,
   ExploreRoute: ExploreRoute,
+  FaqRoute: FaqRoute,
   LoginRoute: LoginRoute,
   PostTaskRoute: PostTaskRoute,
+  PrivacyRoute: PrivacyRoute,
   SignupRoute: SignupRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

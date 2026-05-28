@@ -5,6 +5,8 @@ import { sampleTasks } from "@/lib/sample-tasks";
 import { Search, MapPin, ShieldCheck, Clock, Star, Wallet, Sparkles, ArrowRight } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import helperPortrait from "@/assets/helper-portrait.jpg";
+import { faqs } from "./faq";
+
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -220,7 +222,32 @@ function Index() {
         </div>
       </section>
 
+      {/* FAQ */}
+      <section className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pb-20">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl sm:text-4xl font-bold">Common questions</h2>
+          <p className="text-muted-foreground mt-2">Everything you need to know to get started.</p>
+        </div>
+        <div className="divide-y divide-border rounded-2xl border border-border bg-card">
+          {faqs.slice(0, 5).map((f) => (
+            <details key={f.q} className="group p-5">
+              <summary className="cursor-pointer list-none font-semibold flex justify-between items-center">
+                {f.q}
+                <span className="text-primary text-xl group-open:rotate-45 transition-transform">+</span>
+              </summary>
+              <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{f.a}</p>
+            </details>
+          ))}
+        </div>
+        <div className="mt-6 text-center">
+          <Link to="/faq" className="text-sm font-medium text-primary inline-flex items-center gap-1 hover:gap-2 transition-all">
+            See all FAQs <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </section>
+
       {/* CTA */}
+
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-24">
         <div className="rounded-3xl border border-border bg-card p-10 md:p-14 text-center">
           <h2 className="text-4xl sm:text-5xl font-bold">Your to-do list, done.</h2>

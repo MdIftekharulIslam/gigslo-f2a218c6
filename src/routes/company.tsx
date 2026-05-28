@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Layout } from "@/components/site/Layout";
+import { Linkedin } from "lucide-react";
 
 export const Route = createFileRoute("/company")({
   component: Company,
@@ -37,9 +38,31 @@ function Company() {
         <h2 className="mt-16 text-2xl font-semibold">Our mission</h2>
         <p className="mt-3 text-muted-foreground">To make everyday help as easy as messaging a neighbour — and to create flexible income for thousands of part-time workers across Europe.</p>
 
-        <h2 className="mt-10 text-2xl font-semibold">Get in touch</h2>
+        <h2 className="mt-12 text-2xl font-semibold">Team</h2>
+        <div className="mt-5 grid sm:grid-cols-2 gap-5">
+          <div className="rounded-2xl border border-border bg-card p-6 flex items-start gap-4">
+            <div className="h-16 w-16 rounded-full bg-gradient-to-br from-primary to-accent grid place-items-center text-2xl font-bold text-primary-foreground shrink-0">
+              RI
+            </div>
+            <div className="flex-1">
+              <div className="font-semibold text-lg">Ripon Islam</div>
+              <div className="text-sm text-muted-foreground">CEO & Founder</div>
+              <a
+                href="https://www.linkedin.com/in/riponislam71/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Ripon Islam on LinkedIn"
+                className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+              >
+                <Linkedin className="h-4 w-4" /> LinkedIn
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <h2 className="mt-12 text-2xl font-semibold">Get in touch</h2>
         <p className="mt-3 text-muted-foreground">
-          Press, partnerships or hello: <a className="text-primary font-medium" href="mailto:hello@gigslo.com">hello@gigslo.com</a><br />
+          Press, partnerships or hello: <a className="text-primary font-medium" href="mailto:contact@gigslo.com">contact@gigslo.com</a><br />
           GigsLo Oy · Helsinki, Finland
         </p>
       </section>
