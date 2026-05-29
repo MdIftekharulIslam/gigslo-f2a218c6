@@ -11,11 +11,12 @@ function XIcon({ className }: { className?: string }) {
   );
 }
 
+// LinkedIn is live; FB/IG/X are placeholders until the founder creates those pages.
 const socials = [
-  { href: "https://www.linkedin.com/company/gigslo", label: "LinkedIn", Icon: Linkedin },
-  { href: "https://www.facebook.com/gigslo", label: "Facebook", Icon: Facebook },
-  { href: "https://www.instagram.com/gigslo", label: "Instagram", Icon: Instagram },
-  { href: "https://x.com/gigslo", label: "X", Icon: XIcon },
+  { href: "https://www.linkedin.com/company/gigslo", label: "LinkedIn", Icon: Linkedin, active: true },
+  { href: "#", label: "Facebook", Icon: Facebook, active: false },
+  { href: "#", label: "Instagram", Icon: Instagram, active: false },
+  { href: "#", label: "X", Icon: XIcon, active: false },
 ];
 
 export function Footer() {
@@ -29,18 +30,29 @@ export function Footer() {
           </p>
           <h4 className="mt-6 text-sm font-semibold">Follow us on</h4>
           <div className="mt-3 flex gap-2">
-            {socials.map(({ href, label, Icon }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                className="h-9 w-9 grid place-items-center rounded-full border border-border bg-card text-foreground/80 hover:text-primary hover:border-primary/40 transition-colors"
-              >
-                <Icon className="h-4 w-4" />
-              </a>
-            ))}
+            {socials.map(({ href, label, Icon, active }) =>
+              active ? (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="h-9 w-9 grid place-items-center rounded-full border border-border bg-card text-foreground/80 hover:text-primary hover:border-primary/40 transition-colors"
+                >
+                  <Icon className="h-4 w-4" />
+                </a>
+              ) : (
+                <span
+                  key={label}
+                  aria-label={`${label} (coming soon)`}
+                  title="Coming soon"
+                  className="h-9 w-9 grid place-items-center rounded-full border border-border bg-card text-muted-foreground/60 cursor-default"
+                >
+                  <Icon className="h-4 w-4" />
+                </span>
+              )
+            )}
           </div>
         </div>
         <div>

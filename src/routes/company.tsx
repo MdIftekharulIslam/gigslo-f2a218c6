@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Layout } from "@/components/site/Layout";
 import { Linkedin } from "lucide-react";
+import founderImg from "@/assets/founder-ripon.jpg";
 
 export const Route = createFileRoute("/company")({
   component: Company,
@@ -41,9 +42,13 @@ function Company() {
         <h2 className="mt-12 text-2xl font-semibold">Team</h2>
         <div className="mt-5 grid sm:grid-cols-2 gap-5">
           <div className="rounded-2xl border border-border bg-card p-6 flex items-start gap-4">
-            <div className="h-16 w-16 rounded-full bg-gradient-to-br from-primary to-accent grid place-items-center text-2xl font-bold text-primary-foreground shrink-0">
-              RI
-            </div>
+            <img
+              src={founderImg}
+              alt="Ripon Islam, CEO & Founder of GigsLo"
+              className="h-20 w-20 rounded-full object-cover shrink-0 border border-border"
+              width={160}
+              height={160}
+            />
             <div className="flex-1">
               <div className="font-semibold text-lg">Ripon Islam</div>
               <div className="text-sm text-muted-foreground">CEO & Founder</div>
