@@ -24,6 +24,7 @@ function Categories() {
             <Link
               key={c.slug}
               to="/explore"
+              search={{ category: c.name }}
               className="group rounded-2xl overflow-hidden bg-card border border-border shadow-card hover:-translate-y-1 transition-all"
             >
               <div className="aspect-[16/10] overflow-hidden">
