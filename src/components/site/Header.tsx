@@ -32,9 +32,9 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/85 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-7xl items-center gap-6 px-4 sm:px-6 lg:px-8">
-        <Link to="/" className="flex items-center gap-2 shrink-0">
-          <img src={logo} alt="GigsLo" className="h-8 w-auto" width={160} height={40} />
+      <div className="mx-auto flex h-20 max-w-7xl items-center gap-6 px-4 sm:px-6 lg:px-8">
+        <Link to="/" className="flex items-center gap-2 shrink-0 transition-transform hover:scale-105">
+          <img src={logo} alt="GigsLo" className="h-12 sm:h-14 w-auto drop-shadow-md" width={240} height={60} />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-1">
