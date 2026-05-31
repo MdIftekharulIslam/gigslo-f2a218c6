@@ -77,7 +77,7 @@ export function Footer() {
             <li><Link to="/company" className="hover:text-primary">About GigsLo</Link></li>
             <li><Link to="/privacy" className="hover:text-primary">Privacy policy</Link></li>
             <li><Link to="/terms" className="hover:text-primary">Terms & conditions</Link></li>
-            <li><a href="mailto:contact@gigslo.com" className="hover:text-primary">Contact</a></li>
+            <li><Link to="/contact" className="hover:text-primary">Contact</Link></li>
           </ul>
         </div>
       </div>
