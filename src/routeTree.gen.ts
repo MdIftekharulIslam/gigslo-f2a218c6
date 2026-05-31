@@ -17,6 +17,7 @@ import { Route as PostTaskRouteImport } from './routes/post-task'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ExploreRouteImport } from './routes/explore'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CompanyRouteImport } from './routes/company'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as BecomeHelperRouteImport } from './routes/become-helper'
@@ -62,6 +63,11 @@ const ExploreRoute = ExploreRouteImport.update({
   path: '/explore',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CompanyRoute = CompanyRouteImport.update({
   id: '/company',
   path: '/company',
@@ -88,6 +94,7 @@ export interface FileRoutesByFullPath {
   '/become-helper': typeof BecomeHelperRoute
   '/categories': typeof CategoriesRoute
   '/company': typeof CompanyRoute
+  '/contact': typeof ContactRoute
   '/explore': typeof ExploreRoute
   '/faq': typeof FaqRoute
   '/login': typeof LoginRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByTo {
   '/become-helper': typeof BecomeHelperRoute
   '/categories': typeof CategoriesRoute
   '/company': typeof CompanyRoute
+  '/contact': typeof ContactRoute
   '/explore': typeof ExploreRoute
   '/faq': typeof FaqRoute
   '/login': typeof LoginRoute
@@ -117,6 +125,7 @@ export interface FileRoutesById {
   '/become-helper': typeof BecomeHelperRoute
   '/categories': typeof CategoriesRoute
   '/company': typeof CompanyRoute
+  '/contact': typeof ContactRoute
   '/explore': typeof ExploreRoute
   '/faq': typeof FaqRoute
   '/login': typeof LoginRoute
@@ -133,6 +142,7 @@ export interface FileRouteTypes {
     | '/become-helper'
     | '/categories'
     | '/company'
+    | '/contact'
     | '/explore'
     | '/faq'
     | '/login'
@@ -147,6 +157,7 @@ export interface FileRouteTypes {
     | '/become-helper'
     | '/categories'
     | '/company'
+    | '/contact'
     | '/explore'
     | '/faq'
     | '/login'
@@ -161,6 +172,7 @@ export interface FileRouteTypes {
     | '/become-helper'
     | '/categories'
     | '/company'
+    | '/contact'
     | '/explore'
     | '/faq'
     | '/login'
@@ -176,6 +188,7 @@ export interface RootRouteChildren {
   BecomeHelperRoute: typeof BecomeHelperRoute
   CategoriesRoute: typeof CategoriesRoute
   CompanyRoute: typeof CompanyRoute
+  ContactRoute: typeof ContactRoute
   ExploreRoute: typeof ExploreRoute
   FaqRoute: typeof FaqRoute
   LoginRoute: typeof LoginRoute
@@ -244,6 +257,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/company': {
       id: '/company'
       path: '/company'
@@ -280,6 +300,7 @@ const rootRouteChildren: RootRouteChildren = {
   BecomeHelperRoute: BecomeHelperRoute,
   CategoriesRoute: CategoriesRoute,
   CompanyRoute: CompanyRoute,
+  ContactRoute: ContactRoute,
   ExploreRoute: ExploreRoute,
   FaqRoute: FaqRoute,
   LoginRoute: LoginRoute,
@@ -292,3 +313,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
