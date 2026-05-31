@@ -10,6 +10,7 @@ import { TaskMap } from "@/components/site/TaskMap";
 
 const searchSchema = z.object({
   category: fallback(z.string(), "").default(""),
+  q: fallback(z.string(), "").default(""),
 });
 
 export const Route = createFileRoute("/explore")({
@@ -24,10 +25,10 @@ export const Route = createFileRoute("/explore")({
 });
 
 function Explore() {
-  const { category } = Route.useSearch();
+  const { category, q: qParam } = Route.useSearch();
   const navigate = useNavigate({ from: "/explore" });
 
-  const [q, setQ] = useState("");
+  const [q, setQ] = useState(qParam || "");
   const [cat, setCat] = useState(category || "");
   const [radius, setRadius] = useState(20);
   const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(null);
@@ -36,8 +37,9 @@ function Explore() {
   const [offerFor, setOfferFor] = useState<Task | null>(null);
   const [showMap, setShowMap] = useState(true);
 
-  // Sync URL ?category= into local state when navigating between categories
+  // Sync URL params into local state when navigating
   useEffect(() => { setCat(category || ""); }, [category]);
+  useEffect(() => { setQ(qParam || ""); }, [qParam]);
 
   function requestLocation() {
     setLocErr(null);
