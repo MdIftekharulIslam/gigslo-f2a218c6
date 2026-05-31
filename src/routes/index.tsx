@@ -20,6 +20,8 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const navigate = useNavigate();
+  const [heroQ, setHeroQ] = useState("");
   return (
     <Layout>
       {/* HERO */}
@@ -35,17 +37,22 @@ function Index() {
               From neighbours you can trust.
             </h1>
             <p className="mt-5 text-lg text-muted-foreground max-w-xl">
-              GigsLo is the hyperlocal way to get household tasks done — and a flexible way for nearby people to earn part-time. Post what you need, get offers fast, pay only when it's done.
+              GigsLo connects local communities to get household tasks done fast. Post what you need, choose from trusted nearby offers, and only pay when the job is complete. Looking for extra income? Find flexible, part-time gigs right in your neighborhood.
             </p>
 
             <form
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={(e) => {
+                e.preventDefault();
+                navigate({ to: "/explore", search: { q: heroQ.trim(), category: "" } });
+              }}
               className="mt-7 flex flex-col sm:flex-row gap-2 max-w-xl"
             >
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <input
                   type="text"
+                  value={heroQ}
+                  onChange={(e) => setHeroQ(e.target.value)}
                   placeholder="What do you need help with?"
                   className="w-full h-12 pl-10 pr-3 rounded-full border border-border bg-card text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                 />
