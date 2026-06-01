@@ -260,7 +260,7 @@ function Index() {
         <div className="rounded-3xl border border-border bg-card p-10 md:p-14 text-center">
           <h2 className="text-4xl sm:text-5xl font-bold">Your to-do list, done.</h2>
           <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-            Join the GigsLo community — thousands of helpful neighbours across Finland, with the EU coming next.
+            Join the GigsLo community: Thousands of helpful neighbors across your local area.
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <Link to="/post-task" className="h-12 inline-flex items-center px-7 rounded-full bg-primary text-primary-foreground font-semibold hover:bg-primary/90 shadow-soft">
