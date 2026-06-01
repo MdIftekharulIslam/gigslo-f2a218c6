@@ -165,12 +165,12 @@ function Index() {
         </div>
         <div className="order-1 lg:order-2">
           <span className="text-sm font-semibold text-accent uppercase tracking-wider">Earn nearby</span>
-          <h2 className="mt-3 text-4xl sm:text-5xl font-bold leading-tight">Work part-time, walk-time from home.</h2>
+          <h2 className="mt-3 text-4xl sm:text-5xl font-bold leading-tight">Work part-time, close to your home.</h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Students, parents, professionals — anyone with skills and time can become a GigsLo helper. Choose the tasks you love, set your own rates and build a 5-star reputation in your neighbourhood.
+            Students, freelancers, professionals — anyone with or without specialized skills and time can become a GigsLo helper. Choose the tasks you love and build a 5-star reputation in your neighborhood.
           </p>
           <ul className="mt-6 space-y-3 text-sm">
-            <li className="flex gap-3"><MapPin className="h-5 w-5 text-primary shrink-0" /> Only show jobs within walking or cycling distance.</li>
+            <li className="flex gap-3"><MapPin className="h-5 w-5 text-primary shrink-0" /> Show jobs within walking or cycling distance</li>
             <li className="flex gap-3"><Wallet className="h-5 w-5 text-primary shrink-0" /> Get paid within 24h of finishing a task.</li>
             <li className="flex gap-3"><ShieldCheck className="h-5 w-5 text-primary shrink-0" /> Insured tasks and verified customers.</li>
           </ul>
@@ -260,7 +260,7 @@ function Index() {
         <div className="rounded-3xl border border-border bg-card p-10 md:p-14 text-center">
           <h2 className="text-4xl sm:text-5xl font-bold">Your to-do list, done.</h2>
           <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-            Join the GigsLo community — thousands of helpful neighbours across Finland, with the EU coming next.
+            Join the GigsLo community: Thousands of helpful neighbors across your local area.
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <Link to="/post-task" className="h-12 inline-flex items-center px-7 rounded-full bg-primary text-primary-foreground font-semibold hover:bg-primary/90 shadow-soft">
